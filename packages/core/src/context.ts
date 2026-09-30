@@ -53,11 +53,16 @@ export class EmbeddingError extends Error {
     }
 }
 
+// Uppercase extensions conventionally indicate preprocessed Fortran sources.
+const FORTRAN_EXTENSIONS = ['.f', '.for', '.f77', '.f90', '.f95', '.f03', '.f08'];
+
 const DEFAULT_SUPPORTED_EXTENSIONS = [
     // Programming languages
     '.ts', '.tsx', '.js', '.jsx', '.py', '.java', '.cpp', '.c', '.h', '.hpp',
     '.cs', '.go', '.rs', '.php', '.rb', '.swift', '.kt', '.scala', '.m', '.mm',
     '.dart', '.sol',
+    ...FORTRAN_EXTENSIONS,
+    ...FORTRAN_EXTENSIONS.map(ext => ext.toUpperCase()),
     // Text and markup files
     '.md', '.markdown', '.ipynb',
     // '.txt',  '.json', '.yaml', '.yml', '.xml', '.html', '.htm',
@@ -1102,6 +1107,7 @@ export class Context {
      * Get programming language based on file extension
      */
     private getLanguageFromExtension(ext: string): string {
+        if (FORTRAN_EXTENSIONS.includes(ext.toLowerCase())) return 'fortran';
         const languageMap: Record<string, string> = {
             '.ts': 'typescript',
             '.tsx': 'typescript',
