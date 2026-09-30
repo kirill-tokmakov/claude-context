@@ -11,6 +11,7 @@ const Go = require('tree-sitter-go');
 const Rust = require('tree-sitter-rust');
 const CSharp = require('tree-sitter-c-sharp');
 const Scala = require('tree-sitter-scala');
+const Fortran = require('tree-sitter-fortran');
 
 // Node types that represent logical code units
 const SPLITTABLE_NODE_TYPES = {
@@ -22,7 +23,8 @@ const SPLITTABLE_NODE_TYPES = {
     go: ['function_declaration', 'method_declaration', 'type_declaration', 'var_declaration', 'const_declaration'],
     rust: ['function_item', 'impl_item', 'struct_item', 'enum_item', 'trait_item', 'mod_item'],
     csharp: ['method_declaration', 'class_declaration', 'interface_declaration', 'struct_declaration', 'enum_declaration'],
-    scala: ['method_declaration', 'class_declaration', 'interface_declaration', 'constructor_declaration']
+    scala: ['method_declaration', 'class_declaration', 'interface_declaration', 'constructor_declaration'],
+    fortran: ['module', 'submodule', 'program', 'subroutine', 'function', 'module_procedure', 'derived_type_definition', 'interface']
 };
 
 export class AstCodeSplitter implements Splitter {
@@ -57,6 +59,13 @@ export class AstCodeSplitter implements Splitter {
 
             if (!tree.rootNode) {
                 console.warn(`[ASTSplitter] ⚠️  Failed to parse AST for ${language}, falling back to LangChain: ${filePath || 'unknown'}`);
+                return await this.langchainFallback.split(code, language, filePath);
+            }
+
+            // Unsupported fixed-form syntax or compiler extensions must not silently
+            // disappear when only the successfully parsed AST nodes are extracted.
+            if (langConfig.parser === Fortran && tree.rootNode.hasError) {
+                console.warn(`[ASTSplitter] Fortran parse errors, falling back to LangChain: ${filePath || 'unknown'}`);
                 return await this.langchainFallback.split(code, language, filePath);
             }
 
@@ -100,7 +109,9 @@ export class AstCodeSplitter implements Splitter {
             'rs': { parser: Rust, nodeTypes: SPLITTABLE_NODE_TYPES.rust },
             'cs': { parser: CSharp, nodeTypes: SPLITTABLE_NODE_TYPES.csharp },
             'csharp': { parser: CSharp, nodeTypes: SPLITTABLE_NODE_TYPES.csharp },
-            'scala': { parser: Scala, nodeTypes: SPLITTABLE_NODE_TYPES.scala }
+            'scala': { parser: Scala, nodeTypes: SPLITTABLE_NODE_TYPES.scala },
+            'fortran': { parser: Fortran, nodeTypes: SPLITTABLE_NODE_TYPES.fortran },
+            'f90': { parser: Fortran, nodeTypes: SPLITTABLE_NODE_TYPES.fortran }
         };
 
         return langMap[language.toLowerCase()] || null;
@@ -117,10 +128,14 @@ export class AstCodeSplitter implements Splitter {
         const codeLines = code.split('\n');
 
         const traverse = (currentNode: Parser.SyntaxNode) => {
-            // Check if this node type should be split into a chunk
-            if (splittableTypes.includes(currentNode.type)) {
+            // Keywords can share a type name with a logical unit (e.g. Fortran
+            // "module"). Only named nodes represent units, not keyword tokens.
+            if (currentNode.isNamed && splittableTypes.includes(currentNode.type)) {
                 const startLine = currentNode.startPosition.row + 1;
-                const endLine = currentNode.endPosition.row + 1;
+                // Tree-sitter uses an exclusive end position. Column zero is
+                // the start of the next line, not part of this chunk.
+                const endLine = Math.max(startLine, currentNode.endPosition.row +
+                    (currentNode.endPosition.column === 0 ? 0 : 1));
                 const nodeText = code.slice(currentNode.startIndex, currentNode.endIndex);
 
                 // Only create chunk if it has meaningful content
@@ -263,7 +278,8 @@ export class AstCodeSplitter implements Splitter {
     static isLanguageSupported(language: string): boolean {
         const supportedLanguages = [
             'javascript', 'js', 'typescript', 'ts', 'python', 'py',
-            'java', 'cpp', 'c++', 'c', 'go', 'rust', 'rs', 'cs', 'csharp', 'scala'
+            'java', 'cpp', 'c++', 'c', 'go', 'rust', 'rs', 'cs', 'csharp', 'scala',
+            'fortran', 'f90'
         ];
         return supportedLanguages.includes(language.toLowerCase());
     }
