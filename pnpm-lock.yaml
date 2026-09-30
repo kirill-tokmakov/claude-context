@@ -178,6 +178,9 @@ importers:
       tree-sitter-cpp:
         specifier: ^0.22.0
         version: 0.22.3(tree-sitter@0.21.1)
+      tree-sitter-fortran:
+        specifier: https://codeload.github.com/stadelmanma/tree-sitter-fortran/tar.gz/15199bffbe29285d6196224887be86dd7da200fa
+        version: https://codeload.github.com/stadelmanma/tree-sitter-fortran/tar.gz/15199bffbe29285d6196224887be86dd7da200fa(tree-sitter@0.21.1)
       tree-sitter-go:
         specifier: ^0.21.0
         version: 0.21.2(tree-sitter@0.21.1)
@@ -3968,6 +3971,16 @@ packages:
     resolution: {integrity: sha512-p7w5903L/koqTQFVDwyyX0vjioxoZu2G4zT2ZHVG8DvLQbWN6OjNAqfMsCi+WdVkfMgU+7j06hS8i3j6Q0sPNQ==}
     peerDependencies:
       tree-sitter: ^0.21.1
+      tree_sitter: '*'
+    peerDependenciesMeta:
+      tree_sitter:
+        optional: true
+
+  tree-sitter-fortran@https://codeload.github.com/stadelmanma/tree-sitter-fortran/tar.gz/15199bffbe29285d6196224887be86dd7da200fa:
+    resolution: {integrity: sha512-iAOad6BiacNWTRVeqqXsoC8R3awe3PS+svDSWxagkd6FbpSmRMnrovy5RRWYg4gh1S8NTz5a5muT9p9RW0HbsQ==, tarball: https://codeload.github.com/stadelmanma/tree-sitter-fortran/tar.gz/15199bffbe29285d6196224887be86dd7da200fa}
+    version: 0.2.0
+    peerDependencies:
+      tree-sitter: ^0.21.0
       tree_sitter: '*'
     peerDependenciesMeta:
       tree_sitter:
@@ -8625,6 +8638,12 @@ snapshots:
   tree-sitter-cpp@0.22.3(tree-sitter@0.21.1):
     dependencies:
       node-addon-api: 8.4.0
+      node-gyp-build: 4.8.4
+      tree-sitter: 0.21.1
+
+  tree-sitter-fortran@https://codeload.github.com/stadelmanma/tree-sitter-fortran/tar.gz/15199bffbe29285d6196224887be86dd7da200fa(tree-sitter@0.21.1):
+    dependencies:
+      node-addon-api: 7.1.1
       node-gyp-build: 4.8.4
       tree-sitter: 0.21.1
 

@@ -4,6 +4,8 @@
 
 ### Your entire codebase as Claude's context
 
+> Fortran AST branch: see [installation, behavior and test results](docs/fortran.md).
+
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-green.svg)](https://nodejs.org/)
 [![Documentation](https://img.shields.io/badge/Documentation-📚-orange.svg)](docs/)

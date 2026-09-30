@@ -4,3 +4,6 @@ packages:
 
 ignoredBuiltDependencies:
   - faiss-node
+
+onlyBuiltDependencies:
+  - tree-sitter-fortran
