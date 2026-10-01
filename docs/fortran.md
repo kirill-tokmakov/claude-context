@@ -12,10 +12,10 @@ Tools with Desktop development with C++). GitHub must be reachable during instal
 ```sh
 npm install --global pnpm@10.11.0
 pnpm install --frozen-lockfile
-pnpm --filter @zilliz/claude-context-core rebuild tree-sitter-fortran
+pnpm --filter @kirill-tokmakov/claude-context-core rebuild tree-sitter-fortran
 pnpm build:core
 pnpm build:mcp
-pnpm --filter @zilliz/claude-context-core test:fortran
+pnpm --filter @kirill-tokmakov/claude-context-core test:fortran
 ```
 
 For VS Code / GitHub Copilot, keep the `env` object from your existing working
@@ -43,8 +43,8 @@ The example paths, embedding model and service addresses are placeholders.
 Use your current Milvus address, credentials, embedding model and provider.
 If using an OpenAI-compatible embedding endpoint such as LM Studio, keep your
 existing OpenAI provider settings instead of switching to Ollama.
-Do not launch the registry version via `npx @zilliz/claude-context-mcp`: that
-would bypass the patched checkout. Run the server where it can access the source files.
+The original `@zilliz/claude-context-mcp` package does not contain this patch.
+Run the server where it can access the source files.
 
 After restarting the MCP server, invoke `index_codebase` with `splitter: "ast"`
 and `force: true` on the intended codebase to replace existing text-based chunks.

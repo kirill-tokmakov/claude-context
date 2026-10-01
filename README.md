@@ -1,3 +1,6 @@
+> **Community fork:** Fortran support and npm packages under `@kirill-tokmakov`.
+> The first npm release is being prepared; see [Fortran setup](docs/fortran.md) and [publishing](docs/npm-publishing.md).
+
 ![](assets/claude-context.png)
 
 > 🆕 **Looking for persistent memory for Claude Code?** Check out [memsearch Claude Code plugin](https://github.com/zilliztech/memsearch#for-claude-code-users) — a markdown-first memory system that gives your AI agent long-term memory across sessions.
@@ -10,8 +13,8 @@
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-green.svg)](https://nodejs.org/)
 [![Documentation](https://img.shields.io/badge/Documentation-📚-orange.svg)](docs/)
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/zilliz.semanticcodesearch?label=VS%20Code%20Extension&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=zilliz.semanticcodesearch)
-[![npm - core](https://img.shields.io/npm/v/@zilliz/claude-context-core?label=%40zilliz%2Fclaude-context-core&logo=npm)](https://www.npmjs.com/package/@zilliz/claude-context-core)
-[![npm - mcp](https://img.shields.io/npm/v/@zilliz/claude-context-mcp?label=%40zilliz%2Fclaude-context-mcp&logo=npm)](https://www.npmjs.com/package/@zilliz/claude-context-mcp)
+[![npm - core](https://img.shields.io/npm/v/@kirill-tokmakov/claude-context-core?label=%40zilliz%2Fclaude-context-core&logo=npm)](https://www.npmjs.com/package/@kirill-tokmakov/claude-context-core)
+[![npm - mcp](https://img.shields.io/npm/v/@kirill-tokmakov/claude-context-mcp?label=%40zilliz%2Fclaude-context-mcp&logo=npm)](https://www.npmjs.com/package/@kirill-tokmakov/claude-context-mcp)
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/zilliz_universe.svg?style=social&label=Follow%20%40Zilliz)](https://twitter.com/zilliz_universe)
 [![DeepWiki](https://img.shields.io/badge/DeepWiki-AI%20Docs-purple.svg?logo=gitbook&logoColor=white)](https://deepwiki.com/zilliztech/claude-context)
 <a href="https://discord.gg/mKc3R95yE5"><img height="20" src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white" alt="discord" /></a>
@@ -71,7 +74,7 @@ claude mcp add claude-context \
   -e OPENAI_API_KEY=sk-your-openai-api-key \
   -e MILVUS_ADDRESS=your-zilliz-cloud-public-endpoint \
   -e MILVUS_TOKEN=your-zilliz-cloud-api-key \
-  -- npx @zilliz/claude-context-mcp@latest
+  -- npx @kirill-tokmakov/claude-context-mcp@latest
 ```
 
 See the [Claude Code MCP documentation](https://docs.anthropic.com/en/docs/claude-code/mcp) for more details about MCP server management.
@@ -91,7 +94,7 @@ Codex CLI uses TOML configuration files:
 # IMPORTANT: the top-level key is `mcp_servers` rather than `mcpServers`.
 [mcp_servers.claude-context]
 command = "npx"
-args = ["@zilliz/claude-context-mcp@latest"]
+args = ["@kirill-tokmakov/claude-context-mcp@latest"]
 env = { "OPENAI_API_KEY" = "your-openai-api-key", "MILVUS_TOKEN" = "your-zilliz-cloud-api-key" }
 # Optional: override the default 10s startup timeout
 startup_timeout_ms = 20000
@@ -114,7 +117,7 @@ Gemini CLI requires manual configuration through a JSON file:
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["@zilliz/claude-context-mcp@latest"],
+      "args": ["@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_TOKEN": "your-zilliz-cloud-api-key"
@@ -138,7 +141,7 @@ Create or edit the `~/.qwen/settings.json` file and add the following configurat
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["@zilliz/claude-context-mcp@latest"],
+      "args": ["@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -163,7 +166,7 @@ Pasting the following configuration into your Cursor `~/.cursor/mcp.json` file i
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["-y", "@zilliz/claude-context-mcp@latest"],
+      "args": ["-y", "@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -188,7 +191,7 @@ Add the following configuration to your Void MCP settings:
   "mcpServers": {
     "code-context": {
       "command": "npx",
-      "args": ["-y", "@zilliz/claude-context-mcp@latest"],
+      "args": ["-y", "@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -211,7 +214,7 @@ Add to your Claude Desktop configuration:
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["@zilliz/claude-context-mcp@latest"],
+      "args": ["@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -234,7 +237,7 @@ Windsurf supports MCP configuration through a JSON file. Add the following confi
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["-y", "@zilliz/claude-context-mcp@latest"],
+      "args": ["-y", "@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -257,7 +260,7 @@ The Claude Context MCP server can be used with VS Code through MCP-compatible ex
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["-y", "@zilliz/claude-context-mcp@latest"],
+      "args": ["-y", "@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -280,7 +283,7 @@ Cherry Studio allows for visual MCP server configuration through its settings in
    - **Name**: `claude-context`
    - **Type**: `STDIO`
    - **Command**: `npx`
-   - **Arguments**: `["-y", "@zilliz/claude-context-mcp@latest"]`
+   - **Arguments**: `["-y", "@kirill-tokmakov/claude-context-mcp@latest"]`
    - **Environment Variables**:
      - `OPENAI_API_KEY`: `your-openai-api-key`
      - `MILVUS_ADDRESS`: `your-zilliz-cloud-public-endpoint`
@@ -305,7 +308,7 @@ Cline uses a JSON configuration file to manage MCP servers. To integrate the pro
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["@zilliz/claude-context-mcp@latest"],
+      "args": ["@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -338,7 +341,7 @@ To configure Claude Context MCP in Augment Code, you can use either the graphica
 5. Enter the following command:
 
    ```
-   npx @zilliz/claude-context-mcp@latest
+   npx @kirill-tokmakov/claude-context-mcp@latest
    ```
 
 6. Name the MCP: **Claude Context**.
@@ -360,7 +363,7 @@ To configure Claude Context MCP in Augment Code, you can use either the graphica
     { 
       "name": "claude-context", 
       "command": "npx", 
-      "args": ["-y", "@zilliz/claude-context-mcp@latest"],
+      "args": ["-y", "@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -387,7 +390,7 @@ Roo Code utilizes a JSON configuration file for MCP servers:
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["@zilliz/claude-context-mcp@latest"],
+      "args": ["@kirill-tokmakov/claude-context-mcp@latest"],
       "env": {
         "OPENAI_API_KEY": "your-openai-api-key",
         "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -415,7 +418,7 @@ Zencoder offers support for MCP tools and servers in both its JetBrains and VS C
 ```json
 {
     "command": "npx",
-    "args": ["@zilliz/claude-context-mcp@latest"],
+    "args": ["@kirill-tokmakov/claude-context-mcp@latest"],
     "env": {
       "OPENAI_API_KEY": "your-openai-api-key",
       "MILVUS_ADDRESS": "your-zilliz-cloud-public-endpoint",
@@ -442,7 +445,7 @@ For LangChain/LangGraph integration examples, see [this example](https://github.
 The server uses stdio transport and follows the standard MCP protocol. It can be integrated with any MCP-compatible client by running:
 
 ```bash
-npx @zilliz/claude-context-mcp@latest
+npx @kirill-tokmakov/claude-context-mcp@latest
 ```
 
 </details>
@@ -539,9 +542,9 @@ For detailed evaluation methodology and results, see the [evaluation directory](
 
 Claude Context is a monorepo containing three main packages:
 
-- **`@zilliz/claude-context-core`**: Core indexing engine with embedding and vector database integration
+- **`@kirill-tokmakov/claude-context-core`**: Core indexing engine with embedding and vector database integration
 - **VSCode Extension**: Semantic Code Search extension for Visual Studio Code
-- **`@zilliz/claude-context-mcp`**: Model Context Protocol server for AI agent integration
+- **`@kirill-tokmakov/claude-context-mcp`**: Model Context Protocol server for AI agent integration
 
 ### Supported Technologies
 
@@ -559,10 +562,10 @@ While MCP is the recommended way to use Claude Context with AI assistants, you c
 
 ### Build Applications with Core Package
 
-The `@zilliz/claude-context-core` package provides the fundamental functionality for code indexing and semantic search.
+The `@kirill-tokmakov/claude-context-core` package provides the fundamental functionality for code indexing and semantic search.
 
 ```typescript
-import { Context, MilvusVectorDatabase, OpenAIEmbedding } from '@zilliz/claude-context-core';
+import { Context, MilvusVectorDatabase, OpenAIEmbedding } from '@kirill-tokmakov/claude-context-core';
 
 // Initialize embedding provider
 const embedding = new OpenAIEmbedding({

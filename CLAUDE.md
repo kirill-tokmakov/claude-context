@@ -10,8 +10,8 @@ Claude Context is an MCP plugin that adds semantic code search to AI coding agen
 
 pnpm workspace (`packages/*`, `examples/*`). Requires Node >=20 <24 and pnpm >=10.
 
-- `packages/core` (`@zilliz/claude-context-core`) — the indexing engine. All real logic lives here; the other packages are thin frontends over it.
-- `packages/mcp` (`@zilliz/claude-context-mcp`) — stdio MCP server, the primary product. ESM (`"type": "module"`).
+- `packages/core` (`@kirill-tokmakov/claude-context-core`) — the indexing engine. All real logic lives here; the other packages are thin frontends over it.
+- `packages/mcp` (`@kirill-tokmakov/claude-context-mcp`) — stdio MCP server, the primary product. ESM (`"type": "module"`).
 - `packages/vscode-extension` (`semanticcodesearch`) — VSCode extension. Bundled with webpack; stubs out Node-only deps (Milvus gRPC, native AST) in `src/stubs/`.
 - `packages/chrome-extension` — browser build; overrides `@zilliz/milvus2-sdk-node` to `false` (no gRPC in browser).
 - `examples/basic-usage` — runnable library example.
@@ -34,19 +34,19 @@ Packages depend on `core` via `workspace:*`, so **rebuild core (`pnpm build:core
 
 - **core** uses Jest + ts-jest. Test files are colocated as `*.test.ts` in `src/`.
   ```bash
-  pnpm --filter @zilliz/claude-context-core test                     # all (runs in band)
-  pnpm --filter @zilliz/claude-context-core test -- context.abort    # by filename
-  pnpm --filter @zilliz/claude-context-core test -- -t "pattern"     # by test name
+  pnpm --filter @kirill-tokmakov/claude-context-core test                     # all (runs in band)
+  pnpm --filter @kirill-tokmakov/claude-context-core test -- context.abort    # by filename
+  pnpm --filter @kirill-tokmakov/claude-context-core test -- -t "pattern"     # by test name
   ```
 - **mcp** uses the Node built-in test runner via tsx (no Jest):
   ```bash
-  pnpm --filter @zilliz/claude-context-mcp test                      # runs src/**/*.test.ts
+  pnpm --filter @kirill-tokmakov/claude-context-mcp test                      # runs src/**/*.test.ts
   ```
 
 ### Running the MCP server locally
 
 ```bash
-pnpm --filter @zilliz/claude-context-mcp start        # tsx src/index.ts
+pnpm --filter @kirill-tokmakov/claude-context-mcp start        # tsx src/index.ts
 ```
 Configuration is entirely via environment variables (see `.env.example` and `packages/mcp/src/config.ts`). Key vars: `EMBEDDING_PROVIDER` (OpenAI | VoyageAI | Gemini | Ollama | OpenRouter), provider API key, `EMBEDDING_MODEL`, `MILVUS_ADDRESS` and/or `MILVUS_TOKEN` (address can be auto-resolved from a Zilliz token), `CODE_CHUNKS_COLLECTION_NAME_OVERRIDE`.
 

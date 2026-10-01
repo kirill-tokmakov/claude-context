@@ -1,5 +1,5 @@
-import { AstCodeSplitter, LangChainCodeSplitter } from "@zilliz/claude-context-core";
-import type { Splitter } from "@zilliz/claude-context-core";
+import { AstCodeSplitter, LangChainCodeSplitter } from "@kirill-tokmakov/claude-context-core";
+import type { Splitter } from "@kirill-tokmakov/claude-context-core";
 import type { RequestSplitterType } from "./config.js";
 
 export function isRequestSplitterType(splitterType: unknown): splitterType is RequestSplitterType {

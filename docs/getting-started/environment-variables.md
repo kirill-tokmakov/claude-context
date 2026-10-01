@@ -92,7 +92,7 @@ claude mcp add claude-context \
   -e OPENAI_API_KEY=sk-your-openai-api-key \
   -e MILVUS_ADDRESS=your-zilliz-cloud-public-endpoint \
   -e MILVUS_TOKEN=your-zilliz-cloud-api-key \
-  -- npx @zilliz/claude-context-mcp@latest
+  -- npx @kirill-tokmakov/claude-context-mcp@latest
 ```
 
 **Cursor/Windsurf/Others:**
@@ -101,7 +101,7 @@ claude mcp add claude-context \
   "mcpServers": {
     "claude-context": {
       "command": "npx",
-      "args": ["-y", "@zilliz/claude-context-mcp@latest"]
+      "args": ["-y", "@kirill-tokmakov/claude-context-mcp@latest"]
     }
   }
 }

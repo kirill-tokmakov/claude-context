@@ -67,3 +67,5 @@ repos
 
 evaluation/retrieval_results*
 .venv/
+# Local npm release archives
+/artifacts/

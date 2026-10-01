@@ -1,7 +1,7 @@
 {
-    "name": "@zilliz/claude-context-core",
-    "version": "0.1.15",
-    "description": "Core indexing engine for Claude Context",
+    "name": "@kirill-tokmakov/claude-context-core",
+    "version": "0.1.0",
+    "description": "Core indexing engine for Claude Context (Fortran-enabled community fork)",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
@@ -52,11 +52,14 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/zilliztech/claude-context.git",
+        "url": "https://github.com/kirill-tokmakov/claude-context.git",
         "directory": "packages/core"
     },
     "license": "MIT",
     "publishConfig": {
         "access": "public"
+    },
+    "engines": {
+        "node": ">=20 <24"
     }
 }
